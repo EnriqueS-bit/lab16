@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 16: Formulario de Registro con Imágenes</title>
+    <style>
+        /* Estilos generales para la página del laboratorio */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        .section {
+            margin: 5px auto;
+            padding: 10px;
+            max-width: 1000px;
+            border: 1.5px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        /* Estilos para el menú de navegación */
+        header {
+            background-color: #333;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Laboratorio 16: Creación de un Formulario de Registro Completo con Imágenes</h1>
+    <p style="text-align:center;">En este laboratorio, aprenderás a crear un formulario de registro completo que permite al usuario ingresar sus datos personales y subir una imagen de perfil. También aplicaremos validaciones de datos con JavaScript y mejoraremos la apariencia visual usando CSS.</p>
+
+    <!-- Punto 1 -->
+    <div class="section">
+        <h2>Punto 1: Estructura Básica del Formulario en HTML</h2>
+        <p>Comienza creando un archivo llamado <code>laboratorio16.html</code> y añade el siguiente código para la estructura básica del formulario y el menú de navegación:</p>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt; <!-- Enlace al archivo CSS externo -->
+    &lt;title&gt;Formulario de Registro&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!-- Menú de Navegación --&gt;
+    &lt;header style="background-color: #333; padding: 10px 0;"&gt;
+        &lt;nav&gt;
+            &lt;ul style="list-style: none; display: flex; justify-content: center; margin: 0; padding: 0;"&gt;
+                &lt;li style="margin: 0 15px;"&gt;&lt;a href="#" style="color: white; text-decoration: none; font-weight: bold;"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+                &lt;li style="margin: 0 15px;"&gt;&lt;a href="#" style="color: white; text-decoration: none; font-weight: bold;"&gt;Acerca de&lt;/a&gt;&lt;/li&gt;
+                &lt;li style="margin: 0 15px;"&gt;&lt;a href="#" style="color: white; text-decoration: none; font-weight: bold;"&gt;Servicios&lt;/a&gt;&lt;/li&gt;
+                &lt;li style="margin: 0 15px;"&gt;&lt;a href="#" style="color: white; text-decoration: none; font-weight: bold;"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;form class="formulario" action="#" method="POST" enctype="multipart/form-data" id="registroForm"&gt;
+        &lt;h2&gt;Registro de Usuario&lt;/h2&gt;
+        &lt;label&gt;Nombre:&lt;/label&gt;
+        &lt;input type="text" name="nombre" required&gt;
+
+        &lt;label&gt;Correo Electrónico:&lt;/label&gt;
+        &lt;input type="email" name="email" required&gt;
+
+        &lt;label&gt;Contraseña:&lt;/label&gt;
+        &lt;input type="password" name="password" required&gt;
+
+        &lt;label&gt;Imagen de Perfil:&lt;/label&gt;
+        &lt;input type="file" name="imagen" id="imagen" accept="image/*" onchange="mostrarImagen(event)" required&gt;
+
+        &lt;img id="ver-imagen" src="#" alt="Vista previa de la imagen" /&gt;
+
+        &lt;button type="submit"&gt;Registrar&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+
+    <!-- Punto 2 -->
+    <div class="section">
+        <h2>Punto 2: Aplicar Estilos CSS</h2>
+        <p>Crea un archivo llamado <code>styles.css</code> y añade el siguiente código para personalizar el formulario y hacer que se vea visualmente atractivo:</p>
+        <pre><code>/* Estilos para el formulario */
+            .formulario {
+                /* Ancho y centrado del formulario */
+                width: 320px;
+                margin: 50px auto; /* Margen superior para separar del encabezado */
+                padding: 20px;
+                border: 1px solid #69a7e2;
+                border-radius: 12px;
+                box-shadow: 2px 2px 20px rgba(0,0,0,0.1);
+                background-color: #a6b4c1; /* Fondo del formulario */
+            }
+            
+            /* Estilos para las etiquetas de los campos del formulario */
+            .formulario label {
+                display: block;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+            
+            /* Estilos para los campos de entrada del formulario */
+            .formulario input[type="text"],
+            .formulario input[type="email"],
+            .formulario input[type="password"],
+            .formulario input[type="file"] {
+                width: 100%; /* Abarca todo el ancho del formulario */
+                padding: 10px; /* Espaciado interno */
+                margin-top: 5px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+            
+            /* Estilos para el botón de enviar */
+            .formulario button {
+                width: 100%; /* Abarca todo el ancho del formulario */
+                padding: 10px;
+                margin-top: 20px;
+                background-color: #69a7e2; /* Fondo del botón */
+                color: #fff; /* Color del texto */
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            
+            /* Estilos para la imagen de vista previa */
+            #ver-imagen {
+                display: none; /* Oculto por defecto hasta que se cargue una imagen */
+                margin-top: 10px;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%; /* Hace que la imagen sea circular */
+                border: 2px solid #69a7e2;
+            }
+            
+            /* Estilos para el encabezado */
+            header {
+                background-color: #333;
+                padding: 10px 0;
+            }
+            
+            /* Estilos para el menú de navegación */
+            nav ul {
+                list-style-type: none; /* Elimina los puntos de la lista */
+                padding: 0;
+                margin: 0;
+                text-align: center;
+            }
+            
+            /* Estilos para cada elemento del menú */
+            nav ul li {
+                display: inline;
+                margin-right: 20px;
+            }
+            
+            /* Estilos para los enlaces del menú */
+            nav ul li a {
+                color: white; /* Color de texto */
+                text-decoration: none; /* Elimina subrayado */
+                padding: 10px 20px;
+                display: inline-block;
+            }
+            
+            /* Cambia el color de fondo del enlace al pasar el ratón */
+            nav ul li a:hover {
+                background-color: #555;
+            }
+            
+            
+</code></pre>
+    </div>
+
+    <!-- Punto 3 -->
+    <div class="section">
+        <h2>Punto 3: Validación de Formulario con JavaScript</h2>
+        <p>Crea un archivo llamado <code>script.js</code> y añade el siguiente código para implementar la validación de datos, mostrar la vista previa de la imagen y la alerta de registro exitoso:</p>
+        <pre><code>
+            // script.js
+
+            // Función para mostrar la vista previa de la imagen seleccionada
+            function mostrarImagen(event) {
+                const imagen = document.getElementById('ver-imagen'); // Selecciona el elemento de imagen de vista previa
+                imagen.src = URL.createObjectURL(event.target.files[0]); // Crea una URL temporal para mostrar la imagen seleccionada
+                imagen.style.display = 'block'; // Muestra la imagen en la página
+            }
+            
+            // Función para validar el formulario antes de enviarlo
+            document.getElementById('registroForm').addEventListener('submit', function(event) {
+                // Obtiene los valores de cada campo del formulario
+                const nombre = document.querySelector('input[name="nombre"]').value;
+                const email = document.querySelector('input[name="email"]').value;
+                const password = document.querySelector('input[name="password"]').value;
+            
+                // Verifica que todos los campos estén completos
+                if (nombre === '' || email === '' || password === '') {
+                    alert('Por favor completa todos los campos.'); // Muestra una alerta si algún campo está vacío
+                    event.preventDefault(); // Evita el envío del formulario
+                } else {
+                    alert('Registro exitoso'); // Muestra una alerta de éxito si todos los campos están completos
+                }
+            });
+            
+</code></pre>
+        <p>No olvides enlazar <code>script.js</code> al final de <code>laboratorio16.html</code> antes de <code>&lt;/body&gt;</code>:</p>
+        <pre><code>&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
+    </div>
+
+    <!-- Punto 4 -->
+    <div class="section">
+        <h2>Punto 4: Pruebas del Formulario</h2>
+        <p>Abre el archivo <code>laboratorio16.html</code> en un navegador web y prueba el formulario. Intenta subir una imagen de perfil, llena los campos y envía el formulario para asegurarte de que todo funcione correctamente.</p>
+    </div>
+
+</body>
+</html>
